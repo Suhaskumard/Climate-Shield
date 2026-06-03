@@ -942,3 +942,9 @@ button:hover {
     background: rgba(255,255,255,0.08);
     color: white;
 }
+.message-time {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
