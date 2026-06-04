@@ -216,14 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
             setChatStatus(status, '');
 
         } catch (error) {
-            console.error(error);
-            appendChatMessage(
-                messages,
-                'Chatbot backend is not running.',
-                'bot',
-                true
-            );
-            setChatStatus(status, '');
-        }
+    console.error(error);
+    appendChatMessage(
+        messages,
+        'Chatbot backend is not running.',
+        'bot',
+        true
+    );
+    setChatStatus(status, '');
+}
     });
 });

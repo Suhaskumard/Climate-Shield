@@ -359,12 +359,46 @@ async function getWeatherData() {
     // Generate Dispatch Logs
     dispatchLogsBox.innerHTML = "";
     const addLog = (msg, tone) => {
-      const timeStr = new Date().toLocaleTimeString();
-      const entry = document.createElement("div");
-      entry.className = `log-entry ${tone}`;
-      entry.innerHTML = `[${timeStr}] <strong>${tone.toUpperCase()}:</strong> ${msg}`;
-      dispatchLogsBox.appendChild(entry);
-    };
+  const timeStr = new Date().toLocaleTimeString();
+
+  const badgeMap = {
+    success: {
+      label: "INFO",
+      className: "badge-info",
+      icon: "🛡️",
+    },
+    warning: {
+      label: "WARNING",
+      className: "badge-warning",
+      icon: "⚠️",
+    },
+    critical: {
+      label: "CRITICAL",
+      className: "badge-critical",
+      icon: "🚨",
+    },
+  };
+
+  const config = badgeMap[tone];
+
+  const entry = document.createElement("div");
+  entry.className = `log-entry ${tone}`;
+
+  entry.innerHTML = `
+    <div class="log-header">
+      <span class="log-badge ${config.className}">
+        ${config.icon} ${config.label}
+      </span>
+      <span class="log-time">${timeStr}</span>
+    </div>
+
+    <div class="log-message">
+      ${msg}
+    </div>
+  `;
+
+  dispatchLogsBox.appendChild(entry);
+};
 
     addLog(
       `Monitoring node activated at Lat ${lat.toFixed(4)}, Lon ${lon.toFixed(4)}`,
@@ -434,15 +468,10 @@ async function getWeatherData() {
 
 function clearResults() {
   document.getElementById("city").value = "";
-
   document.getElementById("state").value = "";
-
   document.getElementById("country").value = "";
-
   document.getElementById("results").classList.add("hidden");
-
   document.getElementById("alert-box").classList.add("hidden");
-
   document.getElementById("message-box").classList.add("hidden");
 }
 
@@ -473,6 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
 window.useCurrentLocation = async function () {
   if (!navigator.geolocation) {
     alert("Geolocation is not supported by your browser.");
@@ -524,3 +554,26 @@ window.useCurrentLocation = async function () {
     },
   );
 };
+
+const themeToggle = document.getElementById("theme-toggle");
+
+if (themeToggle) {
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+        themeToggle.textContent = "☀";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+
+        if (document.body.classList.contains("light-mode")) {
+            localStorage.setItem("theme", "light");
+            themeToggle.textContent = "☀";
+        } else {
+            localStorage.setItem("theme", "dark");
+            themeToggle.textContent = "☾";
+        }
+    });
+}
