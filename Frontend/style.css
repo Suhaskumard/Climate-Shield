@@ -975,19 +975,9 @@ button:hover {
     background: rgba(255,255,255,0.08);
     color: white;
 }
-body.light-mode .contact-links a,
-body.light-mode .footer a {
-    color: #334155 !important;
-}
-
-body.light-mode .contact-links a:hover,
-body.light-mode .footer a:hover {
-    color: #0f172a !important;
-}
-body.light-mode .feature-card h3 {
-    color: #0f172a !important;
-}
-body.light-mode .eyebrow,
-body.light-mode .eyebrow-tag {
-    color: #2563eb !important;
+.message-time {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    opacity: 0.7;
 }
