@@ -189,7 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({
+    message,
+    context: window.activeClimateReport ? {
+        flood_risk: window.activeClimateReport.risks.flood_risk,
+        heat_risk: window.activeClimateReport.risks.heat_risk,
+        location: window.activeClimateReport.location.city
+    } : {}
+})
             });
 
             const data = await response.json();

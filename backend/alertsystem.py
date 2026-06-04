@@ -1,6 +1,10 @@
 import os
 import requests
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from flask import (
     Flask,
     jsonify,
@@ -482,6 +486,7 @@ def reverse_geocode():
             "Reverse geocoding failed."
         })
 
+
 # =========================================================
 # CHATBOT API
 # =========================================================
@@ -497,6 +502,25 @@ def chatbot():
             "message",
             ""
         ).lower()
+
+        context = data.get("context", {})
+
+        flood_risk = context.get(
+            "flood_risk",
+            0
+        )
+
+        heat_risk = context.get(
+            "heat_risk",
+            0
+        )
+
+        location = context.get(
+            "location",
+            "your area"
+        )
+
+        warning = ""
 
         responses = {
 
@@ -533,16 +557,48 @@ def chatbot():
 
             if key in message:
 
+                if flood_risk > 0.5:
+
+                    warning = (
+                        f"⚠ High Flood Risk detected in {location}. "
+                        "Avoid low-lying areas and follow local alerts.\n\n"
+                    )
+
+                elif heat_risk > 0.5:
+
+                    warning = (
+                        f"🔥 High Heatwave Risk detected in {location}. "
+                        "Stay hydrated and avoid prolonged outdoor exposure.\n\n"
+                    )
+
                 return jsonify({
                     "success": True,
-                    "response": responses[key]
+                    "response": warning + responses[key]
                 })
+
+        default_response = (
+            "ClimateBot is ready to help with floods, cyclones, heatwaves, and climate safety."
+        )
+
+        if flood_risk > 0.5:
+
+            default_response = (
+                f"⚠ High Flood Risk detected in {location}. "
+                "Avoid low-lying areas and follow local alerts.\n\n"
+                + default_response
+            )
+
+        elif heat_risk > 0.5:
+
+            default_response = (
+                f"🔥 High Heatwave Risk detected in {location}. "
+                "Stay hydrated and avoid prolonged outdoor exposure.\n\n"
+                + default_response
+            )
 
         return jsonify({
             "success": True,
-            "response":
-            "ClimateBot is ready to help with floods, cyclones, heatwaves, droughts, wildfires, landslides, and climate safety."
-
+            "response": default_response
         })
 
     except Exception:
