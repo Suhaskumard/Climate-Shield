@@ -212,6 +212,7 @@ body::before {
   line-height: 0.98;
   letter-spacing: -0.04em;
   max-width: 10ch;
+  color: #f8fafc;
 }
 
 .analysis-hero p {
@@ -277,7 +278,7 @@ body::before {
   border-radius: 999px;
   background: rgba(56, 189, 248, 0.12);
   border: 1px solid rgba(56, 189, 248, 0.22);
-  color: #a5f3fc;
+  color: #0284c7;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -619,7 +620,7 @@ button:hover {
   padding: 20px;
   border-radius: 18px;
   line-height: 1.7;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.98rem;
   animation: fadeIn 0.35s ease;
 }
@@ -647,7 +648,7 @@ button:hover {
 
 .alert-danger {
   background: rgba(239, 68, 68, 0.16);
-  border: 1px solid rgba(239, 68, 68, 0.42);
+  border: 1px solid rgba(230, 10, 10, 0.42);
   color: #fecaca;
 }
 
@@ -947,10 +948,12 @@ button:hover {
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.35);
   color: #fecaca;
+  font-weight: 700;
 }
 
 .clear-btn:hover {
-  background: rgba(239, 68, 68, 0.25);
+  background: #fecaca;
+  color: #b91c1c;
 }
 
 /* =========================================================
@@ -1445,11 +1448,6 @@ button:hover {
   margin-top: 24px;
   width: 100%;
 }
-
-.recent-search-container {
-  margin-top: 20px;
-}
-
 .recent-search-header {
   display: flex;
   align-items: center;

@@ -13,6 +13,8 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <link rel="icon" type="image/png" href="favicon.png" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -42,7 +44,7 @@
             >GitHub</a
           >
         </div>
-
+        <button id="theme-toggle" class="theme-toggle">☾</button>
         <a class="nav-cta" href="Analysis/analysis.html">Start Analysis</a>
       </nav>
 
@@ -140,6 +142,61 @@
             </article>
           </div>
         </section>
+        <section class="capabilities-section">
+          <div class="section-heading">
+            <span>Platform Capabilities</span>
+            <h2>
+              Powerful climate intelligence for proactive decision-making.
+            </h2>
+          </div>
+
+          <div class="capability-grid">
+            <article class="capability-card">
+              <div class="feature-icon">📊</div>
+              <h3>Climate Risk Prediction</h3>
+              <p>
+                Predict potential climate threats using weather patterns and
+                risk scoring models.
+              </p>
+            </article>
+
+            <article class="capability-card">
+              <div class="feature-icon">🌊</div>
+              <h3>Flood & Heatwave Analysis</h3>
+              <p>
+                Evaluate flood and heatwave risks with easy-to-understand
+                climate indicators.
+              </p>
+            </article>
+
+            <article class="capability-card">
+              <div class="feature-icon">🤖</div>
+              <h3>AI-Powered Climate Assistant</h3>
+              <p>
+                Get instant answers and climate safety guidance through
+                ClimateBot.
+              </p>
+            </article>
+
+            <article class="capability-card">
+              <div class="feature-icon">📍</div>
+              <h3>Location-Based Insights</h3>
+              <p>
+                Analyze climate conditions for specific cities and regions
+                worldwide.
+              </p>
+            </article>
+
+            <article class="capability-card">
+              <div class="feature-icon">🌎</div>
+              <h3>Environmental Intelligence</h3>
+              <p>
+                Access real-time environmental information to support informed
+                decisions.
+              </p>
+            </article>
+          </div>
+        </section>
       </main>
 
       <footer id="contact" class="footer">
@@ -233,7 +290,6 @@
             type="text"
             placeholder="Type your question..."
             autocomplete="off"
-            required
           />
           <button type="submit">Send</button>
         </form>
@@ -244,72 +300,5 @@
 
     <script src="script.js"></script>
     <script src="chatbot.js"></script>
-    <script>
-        (function(){
-            const toggle = document.getElementById('chatbot-toggle');
-            const panel = document.getElementById('chatbot-panel');
-            const closeBtn = document.getElementById('chatbot-close');
-            const form = document.getElementById('chatbot-form');
-            const input = document.getElementById('chatbot-input');
-            const messagesDiv = document.getElementById('chatbot-messages');
-            const statusDiv = document.getElementById('chatbot-status');
-
-            function addMessage(text, isUser) {
-                const msgDiv = document.createElement('div');
-                msgDiv.className = isUser ? 'message user' : 'message bot';
-                msgDiv.innerText = text;
-                messagesDiv.appendChild(msgDiv);
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }
-
-            function showStatus(msg) {
-                statusDiv.innerText = msg;
-                statusDiv.classList.remove('hidden');
-                setTimeout(() => statusDiv.classList.add('hidden'), 2200);
-            }
-
-            async function getBotReply(question) {
-                const q = question.toLowerCase();
-                if (q.includes('flood') || q.includes('flooding')) {
-                    return "🌊 Flood risk is calculated using rainfall intensity, soil moisture, and river levels. Climate Shield monitors real-time precipitation and terrain vulnerability to flag potential flash floods.";
-                } else if (q.includes('heatwave') || q.includes('extreme heat')) {
-                    return "🔥 Heatwave risks increase when temperatures exceed regional thresholds. We analyze thermal stress, humidity, and duration to provide early heat alerts.";
-                } else if (q.includes('cyclone') || q.includes('hurricane') || q.includes('typhoon')) {
-                    return "🌀 Cyclones are tracked using wind speed patterns, pressure drops, and storm surge modeling. Our system highlights areas at risk of severe winds and coastal flooding.";
-                } else if (q.includes('climate change')) {
-                    return "🌎 Climate change amplifies extreme weather events — heavier rainfall, prolonged heatwaves, and stronger storms. Climate Shield helps communities build adaptive resilience.";
-                } else {
-                    return "💡 I can answer questions about flood risk, heatwaves, cyclones, climate adaptation, and weather preparedness. Try: 'How to prepare for floods?' or 'Heatwave safety tips'.";
-                }
-            }
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const userMsg = input.value.trim();
-                if (!userMsg) return;
-                addMessage(userMsg, true);
-                input.value = '';
-                showStatus('Analyzing climate data...');
-                try {
-                    const reply = await getBotReply(userMsg);
-                    addMessage(reply, false);
-                    statusDiv.classList.add('hidden');
-                } catch (err) {
-                    addMessage("Sorry, I'm having trouble. Please try again.", false);
-                    statusDiv.classList.add('hidden');
-                }
-            });
-
-            toggle.addEventListener('click', () => {
-                panel.classList.toggle('hidden');
-                const expanded = !panel.classList.contains('hidden');
-                toggle.setAttribute('aria-expanded', expanded);
-            });
-            closeBtn.addEventListener('click', () => {
-                panel.classList.add('hidden');
-                toggle.setAttribute('aria-expanded', 'false');
-            });
-        })();
-    </script>
-</body>
+  </body>
 </html>
