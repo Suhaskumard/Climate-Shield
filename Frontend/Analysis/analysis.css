@@ -1518,3 +1518,42 @@ button:hover {
 .contact-links a:hover {
   opacity: 0.8;
 }
+
+/* Theme Toggle & Light Mode for Analysis Page */
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background: var(--panel);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+body.light-mode {
+  --bg-0: #f8fafc;
+  --bg-1: #edf2f7;
+  --bg-2: #dbeafe;
+
+  --panel: rgba(255, 255, 255, 0.75);
+  --panel-strong: rgba(255, 255, 255, 0.9);
+
+  --text: #0f172a;
+  --muted: #334155;
+  --muted-2: #64748b;
+}
+
+body.light-mode .navbar {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}

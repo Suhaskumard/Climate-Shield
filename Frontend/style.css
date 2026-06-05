@@ -47,6 +47,7 @@ body.light-mode {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 0 0 auto;
 }
 .theme-toggle:hover {
   transform: scale(1.05);
