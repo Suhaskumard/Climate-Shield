@@ -1,4 +1,4 @@
-const API_URL =
+﻿const API_URL =
   window.location.hostname === "127.0.0.1" ||
   window.location.hostname === "localhost"
     ? "http://127.0.0.1:5000/weather"
@@ -14,34 +14,44 @@ window.activeClimateReport = null;
 
 const descriptions = {
   flood: {
-    low:      "No significant flood risk right now. Normal conditions expected — no action needed.",
-    moderate: "Some flood potential exists. Avoid low-lying areas during heavy rain and keep an eye on local alerts.",
-    high:     "Flood risk is elevated. Stay away from rivers, drains, and flood-prone zones. Follow official advisories.",
-    critical: "Dangerous flood conditions. Move to higher ground immediately and contact local emergency services.",
+    low: "No significant flood risk right now. Normal conditions expected — no action needed.",
+    moderate:
+      "Some flood potential exists. Avoid low-lying areas during heavy rain and keep an eye on local alerts.",
+    high: "Flood risk is elevated. Stay away from rivers, drains, and flood-prone zones. Follow official advisories.",
+    critical:
+      "Dangerous flood conditions. Move to higher ground immediately and contact local emergency services.",
   },
   heat: {
-    low:      "Heat levels are comfortable. No heat-related precautions needed at this time.",
-    moderate: "Mild heat stress possible. Stay hydrated, limit outdoor activity during peak afternoon hours.",
-    high:     "High heat risk. Avoid outdoor exertion, drink water frequently, and check on elderly neighbours.",
-    critical: "Extreme heat emergency. Stay indoors in a cool place, call for medical help if you feel unwell.",
+    low: "Heat levels are comfortable. No heat-related precautions needed at this time.",
+    moderate:
+      "Mild heat stress possible. Stay hydrated, limit outdoor activity during peak afternoon hours.",
+    high: "High heat risk. Avoid outdoor exertion, drink water frequently, and check on elderly neighbours.",
+    critical:
+      "Extreme heat emergency. Stay indoors in a cool place, call for medical help if you feel unwell.",
   },
   wildfire: {
-    low:      "Wildfire conditions are calm. No immediate fire risk in your area.",
-    moderate: "Dry and warm conditions present some fire risk. Avoid open burning and report any smoke immediately.",
-    high:     "Elevated wildfire risk. Do not light fires outdoors. Stay informed and be ready to evacuate if directed.",
-    critical: "Critical wildfire danger. Follow evacuation orders immediately and keep emergency bags ready.",
+    low: "Wildfire conditions are calm. No immediate fire risk in your area.",
+    moderate:
+      "Dry and warm conditions present some fire risk. Avoid open burning and report any smoke immediately.",
+    high: "Elevated wildfire risk. Do not light fires outdoors. Stay informed and be ready to evacuate if directed.",
+    critical:
+      "Critical wildfire danger. Follow evacuation orders immediately and keep emergency bags ready.",
   },
   cyclone: {
-    low:      "No cyclone activity expected. Weather conditions are stable.",
-    moderate: "Low-level cyclone indicators detected. Monitor weather bulletins from your local authority.",
-    high:     "Cyclone risk is significant. Secure loose objects, stock emergency supplies, and plan your evacuation route.",
-    critical: "Severe cyclone warning. Seek sturdy shelter immediately and do not travel until the all-clear is given.",
+    low: "No cyclone activity expected. Weather conditions are stable.",
+    moderate:
+      "Low-level cyclone indicators detected. Monitor weather bulletins from your local authority.",
+    high: "Cyclone risk is significant. Secure loose objects, stock emergency supplies, and plan your evacuation route.",
+    critical:
+      "Severe cyclone warning. Seek sturdy shelter immediately and do not travel until the all-clear is given.",
   },
   drought: {
-    low:      "Water supply conditions are normal. No drought stress at this time.",
-    moderate: "Some drought stress is possible. Consider conserving water and monitoring local reservoir advisories.",
-    high:     "Drought conditions are significant. Restrict non-essential water use and follow local water-saving guidelines.",
-    critical: "Severe drought. Water shortages likely. Comply with all rationing measures and store emergency water supplies.",
+    low: "Water supply conditions are normal. No drought stress at this time.",
+    moderate:
+      "Some drought stress is possible. Consider conserving water and monitoring local reservoir advisories.",
+    high: "Drought conditions are significant. Restrict non-essential water use and follow local water-saving guidelines.",
+    critical:
+      "Severe drought. Water shortages likely. Comply with all rationing measures and store emergency water supplies.",
   },
 };
 
@@ -49,10 +59,11 @@ function getRiskLevel(score, riskType) {
   const type = riskType.toLowerCase();
   const d = descriptions[type] || descriptions.flood;
 
-  if (score <= 0.29) return { label: "Low",      cssClass: "low",      desc: d.low      };
-  if (score <= 0.49) return { label: "Moderate", cssClass: "moderate", desc: d.moderate };
-  if (score <= 0.69) return { label: "High",     cssClass: "high",     desc: d.high     };
-                     return { label: "Critical", cssClass: "critical", desc: d.critical  };
+  if (score <= 0.29) return { label: "Low", cssClass: "low", desc: d.low };
+  if (score <= 0.49)
+    return { label: "Moderate", cssClass: "moderate", desc: d.moderate };
+  if (score <= 0.69) return { label: "High", cssClass: "high", desc: d.high };
+  return { label: "Critical", cssClass: "critical", desc: d.critical };
 }
 
 async function getWeatherData() {
@@ -119,6 +130,7 @@ async function getWeatherData() {
     }
 
     hideMessage();
+    saveRecentSearch(city, state, country);
 
     // Update active report in window context
     window.activeClimateReport = data;
@@ -194,22 +206,22 @@ async function getWeatherData() {
     // Store last analysis result so ClimateBot can use it
     window.lastAnalysisContext = {
       location: {
-        city:    city,
-        state:   state,
+        city: city,
+        state: state,
         country: country,
       },
       weather: {
         temperature: data.weather.temperature,
-        humidity:    data.weather.humidity,
-        rainfall:    data.weather.rainfall,
-        wind_speed:  data.weather.wind_speed,
+        humidity: data.weather.humidity,
+        rainfall: data.weather.rainfall,
+        wind_speed: data.weather.wind_speed,
       },
       risks: {
-        flood_risk:    data.risks.flood_risk,
-        heat_risk:     data.risks.heat_risk,
+        flood_risk: data.risks.flood_risk,
+        heat_risk: data.risks.heat_risk,
         wildfire_risk: data.risks.wildfire_risk,
-        cyclone_risk:  data.risks.cyclone_risk,
-        drought_risk:  data.risks.drought_risk,
+        cyclone_risk: data.risks.cyclone_risk,
+        drought_risk: data.risks.drought_risk,
       },
     };
 
@@ -336,19 +348,48 @@ async function getWeatherData() {
       );
       const isDanger = maxDayRisk >= 0.65;
       const alertTag = isDanger ? "⚠️ High Hazard" : "✅ Normal";
+      const riskMap = {
+  Flood: day.risks.flood_risk,
+  Heat: day.risks.heat_risk,
+  Wildfire: day.risks.wildfire_risk,
+  Cyclone: day.risks.cyclone_risk,
+  Drought: day.risks.drought_risk,
+};
+
+const sortedRisks = Object.entries(riskMap)
+  .sort((a, b) => b[1] - a[1]);
+
+const primaryRisk = sortedRisks[0];
+const secondaryRisk = sortedRisks[1];
+
+const primaryCause = primaryRisk[0];
+const primaryScore = primaryRisk[1];
+
 
       const card = document.createElement("div");
       card.className = "forecast-card";
-      card.innerHTML = `
-                <div class="forecast-date">${formattedDate}</div>
-                <div class="forecast-temp">${day.temperature} °C</div>
-                <div class="forecast-details">
-                    <span>💧 Humid: ${day.humidity}%</span>
-                    <span>🌧 Rain: ${day.rainfall} mm</span>
-                    <span>🌪 Wind: ${day.wind_speed} km/h</span>
-                </div>
-                <div class="forecast-risk-indicator ${isDanger ? "has-danger" : ""}">${alertTag}</div>
-            `;
+     card.innerHTML = `
+    <div class="forecast-date">${formattedDate}</div>
+    <div class="forecast-temp">${day.temperature} °C</div>
+
+    <div class="forecast-details">
+        <span>💧 Humid: ${day.humidity}%</span>
+        <span>🌧 Rain: ${day.rainfall} mm</span>
+        <span>🌪 Wind: ${day.wind_speed} km/h</span>
+    </div>
+
+    <div class="forecast-risk-indicator ${isDanger ? "has-danger" : ""}">
+        ${alertTag}
+    </div>
+
+    <div class="forecast-primary-cause">
+        Primary Cause: ${primaryCause} Risk (${primaryScore.toFixed(2)})
+    </div>
+
+    <div class="forecast-secondary-cause">
+        Also: ${secondaryRisk[0]} Risk (${secondaryRisk[1].toFixed(2)})
+    </div>
+`;
       forecastContainer.appendChild(card);
     });
 
@@ -684,17 +725,118 @@ window.useCurrentLocation = async function () {
     },
   );
 };
+function getRecentSearches() {
+  return JSON.parse(localStorage.getItem("recentSearches")) || [];
+}
 
+function saveRecentSearch(city, state, country) {
+  if (!city || !state || !country) return;
+
+  const newSearch = {
+    city,
+    state,
+    country,
+  };
+
+  let searches = getRecentSearches();
+
+  searches = searches.filter(
+    (search) =>
+      !(
+        search.city.toLowerCase() === city.toLowerCase() &&
+        search.state.toLowerCase() === state.toLowerCase() &&
+        search.country.toLowerCase() === country.toLowerCase()
+      ),
+  );
+
+  searches.unshift(newSearch);
+  searches = searches.slice(0, 5);
+
+  localStorage.setItem("recentSearches", JSON.stringify(searches));
+
+  displayRecentSearches();
+}
+
+function displayRecentSearches() {
+  const container = document.getElementById("recent-search-list");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const searches = getRecentSearches();
+
+  searches.forEach((search) => {
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "search-chip";
+    button.innerText = search.city;
+
+    button.addEventListener("click", () => {
+      document.getElementById("city").value = search.city;
+      document.getElementById("state").value = search.state;
+      document.getElementById("country").value = search.country;
+
+      getWeatherData();
+    });
+
+    container.appendChild(button);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  displayRecentSearches();
+
+  const toggleBtn = document.getElementById("toggle-history-btn");
+  const wrapper = document.getElementById("recent-search-wrapper");
+  const clearBtn = document.getElementById("clear-history-btn");
+  const themeToggle = document.getElementById("theme-toggle");
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-theme");
+
+      if (document.body.classList.contains("light-theme")) {
+        themeToggle.innerText = "☀";
+      } else {
+        themeToggle.innerText = "☾";
+      }
+    });
+  }
+  if (toggleBtn && wrapper) {
+    toggleBtn.addEventListener("click", () => {
+      wrapper.classList.toggle("show-history");
+
+      if (wrapper.classList.contains("show-history")) {
+        toggleBtn.innerText = "Recent Searches ▲";
+      } else {
+        toggleBtn.innerText = "Recent Searches ▼";
+      }
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      localStorage.removeItem("recentSearches");
+      displayRecentSearches();
+    });
+  }
+});
 const scrollTopBtn = document.getElementById("scrollTopBtn");
 
 if (scrollTopBtn) {
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      scrollTopBtn.classList.add("show");
+  function toggleScrollButton() {
+    if (window.pageYOffset > 200) {
+      scrollTopBtn.style.display = "flex";
     } else {
-      scrollTopBtn.classList.remove("show");
+      scrollTopBtn.style.display = "none";
     }
-  });
+  }
+
+  toggleScrollButton();
+
+  window.addEventListener("scroll", toggleScrollButton);
 
   scrollTopBtn.addEventListener("click", () => {
     window.scrollTo({
