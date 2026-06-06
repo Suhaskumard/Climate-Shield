@@ -1557,3 +1557,35 @@ body.light-mode .navbar {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
+
+/* Light mode text visibility overrides */
+body.light-mode .section-title,
+body.light-mode .location-box p,
+body.light-mode .weather-box p,
+body.light-mode .risk-card p,
+body.light-mode .input-field,
+body.light-mode .results-kicker,
+body.light-mode .status-pill,
+body.light-mode .demo-indicator {
+  color: var(--text) !important;
+}
+
+body.light-mode .weather-box h3,
+body.light-mode .risk-card h3,
+body.light-mode .input-field::placeholder {
+  color: var(--muted) !important;
+}
+
+body.light-mode .input-field {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .location-box {
+  background: rgba(56, 189, 248, 0.2) !important;
+  border-color: rgba(56, 189, 248, 0.3) !important;
+}
+
+body.light-mode #alerts-box {
+  color: var(--text) !important;
+}
