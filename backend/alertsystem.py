@@ -494,6 +494,74 @@ def reverse_geocode():
             "message": "Reverse geocoding failed."
         })
 
+@app.route("/city-suggestions", methods=["GET"])
+def city_suggestions():
+
+    query = request.args.get("q", "").strip()
+
+    if len(query) < 2:
+        return jsonify([])
+
+    try:
+        response = requests.get(
+            "https://nominatim.openstreetmap.org/search",
+            params={
+                "q": query,
+                "format": "json",
+                "addressdetails": 1,
+                "limit": 5,
+                "countrycodes": "in"
+            },
+            headers={
+                "User-Agent": "ClimateShield/1.0"
+            },
+            timeout=10
+        )
+
+        data = response.json()
+
+        suggestions = []
+
+        for item in data:
+            address = item.get("address", {})
+
+            if not (
+                address.get("city")
+                or address.get("town")
+                or address.get("village")
+                or address.get("municipality")
+            ):
+                continue
+
+            city_name = (
+                address.get("city")
+                or address.get("town")
+                or address.get("village")
+                or address.get("municipality")
+            )
+
+            suggestions.append({
+                "city": city_name,
+                "state": address.get("state", ""),
+                "country": address.get("country", "")
+            })
+
+        suggestions.sort(
+            key=lambda x: (
+                not x["city"].lower().startswith(query.lower()),
+                x["city"].lower()
+            )
+        )
+
+        print("Query:", query)
+        print("Suggestions:", suggestions)
+
+        return jsonify(suggestions)
+
+    except Exception as e:
+        print("City Suggestions Error:", e)
+        return jsonify([])
+    
 # =========================================================
 # CHATBOT API
 # =========================================================
