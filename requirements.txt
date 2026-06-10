@@ -4,3 +4,4 @@ requests
 gunicorn
 python-dotenv
 pytest
+google-generativeai
