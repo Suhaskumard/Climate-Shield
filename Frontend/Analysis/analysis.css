@@ -34,6 +34,9 @@
 }
 
 [data-theme="light"] {
+  --accent: #0284c7;
+  --accent-2: #0369a1;
+
   --bg-primary:    #f4f6fa;
   --bg-secondary:  #eaecf2;
   --bg-card:       #ffffff;
@@ -541,7 +544,7 @@ body::before {
   background: var(--btn-bg);
   border: 1px solid var(--border-strong);
   border-radius: 28px;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);\n  transform: translateZ(0);\n  will-change: transform;
   padding: 32px;
   box-shadow: var(--shadow);
 }
@@ -753,9 +756,17 @@ button:hover {
   text-align: center;
 }
 
-.risk-card p {
+.risk-card p:not(.risk-description) {
   font-size: 1.8rem;
   font-weight: 800;
+}
+
+.risk-description {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-top: 8px;
+  line-height: 1.4;
+  color: var(--text);
 }
 
 .flood {
@@ -1196,7 +1207,7 @@ button:hover {
 /* MULTI-RISK GRID (5 CARDS) */
 .risk-grid-five {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   margin-bottom: 22px;
 }
@@ -1627,7 +1638,7 @@ button:hover {
   transform: scale(1.05);
 }
 
-[data-theme=" light\] {
+[data-theme="light"] {
   --bg-0: #f8fafc;
   --bg-1: #edf2f7;
   --bg-2: #dbeafe;
@@ -1640,44 +1651,44 @@ button:hover {
   --muted-2: #64748b;
 }
 
-[data-theme=" light\] .navbar {
+[data-theme="light"] .navbar {
   background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);\n  transform: translateZ(0);\n  will-change: transform;
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 /* Light mode text visibility overrides */
-[data-theme=" light\] .section-title,
-[data-theme=" light\] .location-box p,
-[data-theme=" light\] .weather-box p,
-[data-theme=" light\] .risk-card p,
-[data-theme=" light\] .input-group input,
-[data-theme=" light\] .results-kicker,
-[data-theme=" light\] .status-pill,
-[data-theme=" light\] .eyebrow,
-[data-theme=" light\] .clear-btn,
-[data-theme=" light\] .log-message,
-[data-theme=" light\] .demo-indicator {
+[data-theme="light"] .section-title,
+[data-theme="light"] .location-box p,
+[data-theme="light"] .weather-box p,
+[data-theme="light"] .risk-card p,
+[data-theme="light"] .input-group input,
+[data-theme="light"] .results-kicker,
+[data-theme="light"] .status-pill,
+[data-theme="light"] .eyebrow,
+[data-theme="light"] .clear-btn,
+[data-theme="light"] .log-message,
+[data-theme="light"] .demo-indicator {
   color: var(--text) !important;
 }
 
-[data-theme=" light\] .weather-box h3,
-[data-theme=" light\] .risk-card h3,
-[data-theme=" light\] .input-group input::placeholder {
+[data-theme="light"] .weather-box h3,
+[data-theme="light"] .risk-card h3,
+[data-theme="light"] .input-group input::placeholder {
   color: var(--muted) !important;
 }
 
-[data-theme=" light\] .input-group input {
+[data-theme="light"] .input-group input {
   background: rgba(255, 255, 255, 0.8) !important;
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-[data-theme=" light\] .location-box {
+[data-theme="light"] .location-box {
   background: rgba(56, 189, 248, 0.2) !important;
   border-color: rgba(56, 189, 248, 0.3) !important;
 }
 
-[data-theme=" light\] #alerts-box {
+[data-theme="light"] #alerts-box {
   color: var(--text) !important;
 }
 
@@ -1799,3 +1810,5 @@ button:hover {
   background: #bae6fd;
   color: #0c4a6e;
 }
+
+.chatbot-panel:not(.hidden) { opacity: 1 !important; pointer-events: auto !important; visibility: visible !important; }

@@ -94,14 +94,6 @@
                     </div>
                 </div>
 
-                <div class="hero-right">
-                    <div class="hero-image-carousel">
-                        <img src="../images/weather_1.jpg" class="carousel-img active" alt="Safe City" />
-                        <img src="../images/weather_2.jpg" class="carousel-img" alt="Heatwave Risk" />
-                        <img src="../images/weather_3.jpg" class="carousel-img" alt="Flood Risk" />
-                        <div class="carousel-overlay"></div>
-                    </div>
-                </div>
             </section>
 
             <section class="analysis-stack">
@@ -244,22 +236,32 @@
                                 <div class="risk-card flood">
                                     <h3>Flood Risk</h3>
                                     <p id="flood-risk"></p>
+                                    <div class="risk-label"></div>
+                                    <p class="risk-description"></p>
                                 </div>
                                 <div class="risk-card heat">
                                     <h3>Heat Risk</h3>
                                     <p id="heat-risk"></p>
+                                    <div class="risk-label"></div>
+                                    <p class="risk-description"></p>
                                 </div>
                                 <div class="risk-card wildfire">
                                     <h3>Wildfire Risk</h3>
                                     <p id="wildfire-risk"></p>
+                                    <div class="risk-label"></div>
+                                    <p class="risk-description"></p>
                                 </div>
                                 <div class="risk-card cyclone">
                                     <h3>Cyclone Risk</h3>
                                     <p id="cyclone-risk"></p>
+                                    <div class="risk-label"></div>
+                                    <p class="risk-description"></p>
                                 </div>
                                 <div class="risk-card drought">
                                     <h3>Drought Risk</h3>
                                     <p id="drought-risk"></p>
+                                    <div class="risk-label"></div>
+                                    <p class="risk-description"></p>
                                 </div>
                             </div>
                         </div>
@@ -271,6 +273,11 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div id="recommendations-panel" class="recommendations-panel hidden">
+                        <div class="section-title">💡 Actionable Recommendations</div>
+                        <ul id="recommendations-list"></ul>
                     </div>
 
                     <div id="alert-box" class="alert-box hidden"></div>
@@ -498,7 +505,7 @@
         <section id="chatbot-panel" class="chatbot-panel hidden" aria-label="ClimateBot chat panel">
             <div class="chatbot-header">
                 <div>
-                    <strong>ClimateBot Assistant</strong>
+                    <strong>ClimateBot Assistant</strong> <span id="chatbot-context-badge" class="chatbot-badge" style="display: none;"></span>
                     <small>Ask about floods, heatwaves, cyclones, and climate change.</small>
                 </div>
                 <button id="chatbot-close" class="chatbot-close" type="button" aria-label="Close chatbot">✕</button>

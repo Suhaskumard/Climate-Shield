@@ -35,6 +35,9 @@
 }
 
 [data-theme="light"] {
+  --accent: #0284c7;
+  --accent-2: #0369a1;
+
   --bg-primary:    #f4f6fa;
   --bg-secondary:  #eaecf2;
   --bg-card:       #ffffff;
@@ -821,7 +824,7 @@ button:hover {
   cursor: pointer;
 }
 
-.chatbot-panel {
+.chatbot-panel {\n  opacity: 0;\n  pointer-events: none;\n
   position: fixed;
   right: 24px;
   bottom: 84px;
@@ -1024,7 +1027,7 @@ button:hover {
     font-size: 1.2rem;
   }
 
-  .chatbot-panel {
+  .chatbot-panel {\n  opacity: 0;\n  pointer-events: none;\n
     right: 10px;
     bottom: 60px;
     width: calc(100vw - 20px);
@@ -1034,7 +1037,7 @@ button:hover {
     grid-template-columns: 1fr;
   }
 }
-<<<<<<< HEAD
+
 
 /* ================================================
    LIGHT THEME — fix all hardcoded dark-only colors
@@ -1090,7 +1093,7 @@ button:hover {
 }
 
 /* Chatbot panel — dark glassy bg → white */
-[data-theme="light"] .chatbot-panel {
+[data-theme="light"] .chatbot-panel {\n  opacity: 0;\n  pointer-events: none;\n
   background: rgba(255, 255, 255, 0.97);
   border-color: rgba(0, 0, 0, 0.1);
 }
@@ -1125,3 +1128,5 @@ button:hover {
 [data-theme="light"] .footer-links a:hover {
   color: #0369a1;
 }
+
+.chatbot-panel:not(.hidden) { opacity: 1 !important; pointer-events: auto !important; visibility: visible !important; }

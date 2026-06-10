@@ -14,44 +14,34 @@ window.activeClimateReport = null;
 
 const descriptions = {
   flood: {
-    low: "No significant flood risk right now. Normal conditions expected — no action needed.",
-    moderate:
-      "Some flood potential exists. Avoid low-lying areas during heavy rain and keep an eye on local alerts.",
-    high: "Flood risk is elevated. Stay away from rivers, drains, and flood-prone zones. Follow official advisories.",
-    critical:
-      "Dangerous flood conditions. Move to higher ground immediately and contact local emergency services.",
+    low: "No significant flood risk. Normal conditions.",
+    moderate: "Some flood potential. Avoid low-lying areas.",
+    high: "Elevated flood risk. Stay away from rivers.",
+    critical: "Dangerous floods. Move to higher ground immediately.",
   },
   heat: {
-    low: "Heat levels are comfortable. No heat-related precautions needed at this time.",
-    moderate:
-      "Mild heat stress possible. Stay hydrated, limit outdoor activity during peak afternoon hours.",
-    high: "High heat risk. Avoid outdoor exertion, drink water frequently, and check on elderly neighbours.",
-    critical:
-      "Extreme heat emergency. Stay indoors in a cool place, call for medical help if you feel unwell.",
+    low: "Comfortable temperatures. No precautions needed.",
+    moderate: "Mild heat stress. Stay hydrated.",
+    high: "High heat risk. Avoid outdoor exertion.",
+    critical: "Extreme heat emergency. Stay indoors.",
   },
   wildfire: {
-    low: "Wildfire conditions are calm. No immediate fire risk in your area.",
-    moderate:
-      "Dry and warm conditions present some fire risk. Avoid open burning and report any smoke immediately.",
-    high: "Elevated wildfire risk. Do not light fires outdoors. Stay informed and be ready to evacuate if directed.",
-    critical:
-      "Critical wildfire danger. Follow evacuation orders immediately and keep emergency bags ready.",
+    low: "Calm conditions. No immediate fire risk.",
+    moderate: "Dry conditions. Avoid open burning.",
+    high: "Elevated fire risk. Be ready to evacuate.",
+    critical: "Critical fire danger. Follow evacuation orders.",
   },
   cyclone: {
-    low: "No cyclone activity expected. Weather conditions are stable.",
-    moderate:
-      "Low-level cyclone indicators detected. Monitor weather bulletins from your local authority.",
-    high: "Cyclone risk is significant. Secure loose objects, stock emergency supplies, and plan your evacuation route.",
-    critical:
-      "Severe cyclone warning. Seek sturdy shelter immediately and do not travel until the all-clear is given.",
+    low: "Stable weather. No cyclone activity.",
+    moderate: "Low-level indicators. Monitor weather bulletins.",
+    high: "Significant cyclone risk. Secure loose objects.",
+    critical: "Severe cyclone warning. Seek sturdy shelter.",
   },
   drought: {
-    low: "Water supply conditions are normal. No drought stress at this time.",
-    moderate:
-      "Some drought stress is possible. Consider conserving water and monitoring local reservoir advisories.",
-    high: "Drought conditions are significant. Restrict non-essential water use and follow local water-saving guidelines.",
-    critical:
-      "Severe drought. Water shortages likely. Comply with all rationing measures and store emergency water supplies.",
+    low: "Normal water supply. No drought stress.",
+    moderate: "Possible drought stress. Conserve water.",
+    high: "Significant drought. Restrict water use.",
+    critical: "Severe drought. Comply with rationing measures.",
   },
 };
 
@@ -1041,25 +1031,4 @@ async function fetchAndRenderChart(lat, lon) {
     }
 }
 
-const themeToggle = document.getElementById("theme-toggle");
-
-if (themeToggle) {
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "light") {
-        document.body.classList.add("light-mode");
-        themeToggle.textContent = "☀️";
-    }
-
-    themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
-
-        if (document.body.classList.contains("light-mode")) {
-            localStorage.setItem("theme", "light");
-            themeToggle.textContent = "☀️";
-        } else {
-            localStorage.setItem("theme", "dark");
-            themeToggle.textContent = "☾";
-        }
-    });
-}
+// Theme toggle logic is handled globally by theme.js
