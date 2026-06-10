@@ -114,6 +114,8 @@ body::before {
 .navbar {
   display: flex;
   align-items: center;
+  position:fixed;
+  z-index: 2;
   justify-content: space-between;
   gap: 20px;
   padding: 16px 22px;
@@ -124,6 +126,9 @@ body::before {
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow);
   margin-bottom: 28px;
+  width: calc(100% - 32px); 
+  max-width: 1200px;
+  margin: 0 auto;
 }
 body.light-mode .navbar {
   background: rgba(255, 255, 255, 0.35);
@@ -239,6 +244,7 @@ body.light-mode .navbar {
 }
 
 .hero-copy {
+  margin-top: 15vh;
   padding: 24px 8px;
 }
 
@@ -924,6 +930,7 @@ button:hover {
   }
   .navbar{
     display:flex;
+    position: fixed;
     flex-direction: row;
     align-items: center;
     align-content: center;
@@ -940,6 +947,7 @@ button:hover {
 
   .hero-copy {
     padding: 12px 0 0;
+    margin-top: 20vh;
   }
 
   .hero-copy h1 {
@@ -1017,10 +1025,14 @@ button:hover {
   }
 .navbar{
     display:flex;
+    position: fixed;
     flex-direction: row;
     align-items: center;
     align-content: center;
     justify-content: center;
+  }
+  .hero-copy{
+    margin-top: 30vh;
   }
   .hero-actions
   {
