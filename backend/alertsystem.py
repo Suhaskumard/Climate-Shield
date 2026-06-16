@@ -45,7 +45,10 @@ from flask import (
 )
 
 from flask_cors import CORS
-from .risk_calculator import calculate_risk_scores, get_detailed_risks, generate_alerts
+try:
+    from .risk_calculator import calculate_risk_scores, get_detailed_risks, generate_alerts
+except ImportError:
+    from risk_calculator import calculate_risk_scores, get_detailed_risks, generate_alerts
 
 # =========================================================
 # APP CONFIG
@@ -484,28 +487,51 @@ def city_suggestions():
 
         suggestions = []
 
+        seen = set()
         for item in data:
             address = item.get("address", {})
-
-            if not (
-                address.get("city")
-                or address.get("town")
-                or address.get("village")
-                or address.get("municipality")
-            ):
-                continue
 
             city_name = (
                 address.get("city")
                 or address.get("town")
                 or address.get("village")
                 or address.get("municipality")
+                or address.get("city_district")
+                or address.get("county")
+                or address.get("suburb")
+                or address.get("neighbourhood")
+                or address.get("state")
             )
+
+            if not city_name:
+                continue
+
+            state_name = address.get("state", "")
+            if not state_name:
+                display_name = item.get("display_name", "")
+                parts = [p.strip() for p in display_name.split(",")]
+                if len(parts) >= 2:
+                    state_name = parts[-2]
+
+            country_code = address.get("country_code", "").upper()
+            if not country_code:
+                country_name = address.get("country", "")
+                if not country_name:
+                    display_name = item.get("display_name", "")
+                    parts = [p.strip() for p in display_name.split(",")]
+                    if len(parts) >= 1:
+                        country_name = parts[-1]
+                country_code = country_name
+
+            key = (city_name.lower(), state_name.lower(), country_code.lower())
+            if key in seen:
+                continue
+            seen.add(key)
 
             suggestions.append({
                 "city": city_name,
-                "state": address.get("state", ""),
-                "country": address.get("country", "")
+                "state": state_name,
+                "country": country_code
             })
 
         suggestions.sort(
@@ -563,3 +589,5 @@ if __name__ == "__main__":
         debug=True
 
     )
+
+# Auto-reloaded to apply new API key env variables
