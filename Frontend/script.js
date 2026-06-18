@@ -223,14 +223,15 @@ window.onload = function () {
             r => r.isAnomaly
         );
 
-        anomalyElement.innerHTML =
+       anomalyElement.innerHTML =
             anomalies.length === 0
                 ? "✅ No unusual climate spikes detected"
                 : anomalies.map(a =>
                     `⚠️ Anomaly: ${a.value}°C (z=${a.zScore.toFixed(2)})`
                 ).join("<br>");
-    }
+    } // Closes whatever block wrapped the anomaly logic
 
+    // Scroll to Top Button
     const scrollTopBtn = document.getElementById("scrollTopBtn");
 
     if (scrollTopBtn) {
@@ -249,4 +250,4 @@ window.onload = function () {
             });
         });
     }
-};
+}; 
